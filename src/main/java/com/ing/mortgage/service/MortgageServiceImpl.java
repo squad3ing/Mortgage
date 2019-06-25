@@ -114,15 +114,13 @@ public class MortgageServiceImpl implements MortgageService {
 	}
 	
 	private boolean validAge(LocalDate date1) {
-		
+		boolean result=false;
 		int birthYear = date1.getYear();
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		int age = year - birthYear;
 		if(age>18) {
-			return true;
-		}else {
-			return false;
-		}		
+			result =true;
+		}return result;	
 	}
 
 	@Override
