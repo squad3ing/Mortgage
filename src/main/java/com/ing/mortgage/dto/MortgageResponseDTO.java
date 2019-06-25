@@ -1,25 +1,23 @@
 package com.ing.mortgage.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class AccountDTO implements Serializable {
+public class MortgageResponseDTO implements Serializable {
+
 	/**
-	* 
-	*/
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	private Long accountId;
+	private String loginId;
+	private String password;
+	private String mortgageNumber;
+	private String customerName;
 	private String accountNumber;
-	private String accountType;
-	private Double balance;
-	private LocalDate date;
 }

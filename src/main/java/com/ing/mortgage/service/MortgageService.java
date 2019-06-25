@@ -3,9 +3,13 @@ package com.ing.mortgage.service;
 import java.util.List;
 
 import com.ing.mortgage.dto.AccountDTO;
+import com.ing.mortgage.dto.MortgageRequsetDTO;
+import com.ing.mortgage.dto.MortgageResponseDTO;
 
 public interface MortgageService {
 
-	List<AccountDTO> findByCustomerId(Long customerId);
+	public MortgageResponseDTO createMortgage(MortgageRequsetDTO mortgageRequsetDTO);
+
+	public List<AccountDTO> fetchAccountByCustomerId(Long customerId);
 
 }

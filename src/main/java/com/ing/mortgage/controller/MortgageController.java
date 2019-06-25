@@ -21,11 +21,9 @@ public class MortgageController {
 	@Autowired
 	private MortgageService mortgageService;
 
-	@GetMapping("/api/accounts/{customerId}")
+	@GetMapping("/accounts/{customerId}")
 	public ResponseEntity<List<AccountDTO>> getAccountSummary(@PathVariable Long customerId) {
-		List<AccountDTO> listDTO = mortgageService.findByCustomerId(customerId);
+		List<AccountDTO> listDTO = mortgageService.fetchAccountByCustomerId(customerId);
 		return new ResponseEntity<>(listDTO, HttpStatus.OK);
-
 	}
-
 }
