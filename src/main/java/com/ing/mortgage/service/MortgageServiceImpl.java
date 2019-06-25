@@ -23,8 +23,10 @@ import com.ing.mortgage.entity.Account;
 import com.ing.mortgage.entity.Customer;
 import com.ing.mortgage.entity.Mortgage;
 import com.ing.mortgage.entity.Transaction;
-import com.ing.mortgage.exception.CustomError;
 import com.ing.mortgage.exception.CustomerAccountNotFound;
+import com.ing.mortgage.exception.InvalidPhoneNumberException;
+import com.ing.mortgage.exception.PropertyCostException;
+import com.ing.mortgage.exception.RestrictedAgeException;
 import com.ing.mortgage.repository.AccountRepository;
 import com.ing.mortgage.repository.CustomerRepository;
 import com.ing.mortgage.repository.MortgageRepository;
@@ -76,17 +78,17 @@ public class MortgageServiceImpl implements MortgageService {
 		} 
 		
 		else {
-			throw new CustomError("Please provide property cost above 100000€ ");
+			throw new PropertyCostException();
 		}
 		
 		String birthDay = mortgageRequsetDTO.getDateOfBirth();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate dob = LocalDate.parse(birthDay, formatter);
         if(!validAge(dob)) {
-        	throw new CustomError("Sorry we are unable to grant you the mortgage at this moment");
+        	throw new RestrictedAgeException();
         }		
 		if(!validPhoneNumber(mortgageRequsetDTO.getPhoneNumber())) {
-			throw new CustomError("Please provide valid number");
+			throw new InvalidPhoneNumberException();
 		}
 		String joinDate = mortgageRequsetDTO.getDateOfJoining();
 		LocalDate doj = LocalDate.parse(joinDate, formatter);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.ing.mortgage.dto.AccountDTO;
 import com.ing.mortgage.entity.Account;
+import com.ing.mortgage.entity.Customer;
 import com.ing.mortgage.repository.AccountRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,6 +25,15 @@ public class MortgageServiceImplTest {
 
 	@Mock
 	private AccountRepository accountRepository;
+	
+	Customer customer;
+	@Before
+	public void setup() {
+	    customer = new Customer();
+		customer.setLoginId("test" + "25");
+		customer.setPassword("Hcl@123");
+		customer.setCustomerName("test");
+	}
 
 	@Test
 	public void fetchAccountByCustomerId() {
@@ -39,5 +50,6 @@ public class MortgageServiceImplTest {
 		Assert.assertEquals(2, accounts.size());
 
 	}
+
 
 }
