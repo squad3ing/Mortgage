@@ -19,11 +19,18 @@ import com.ing.mortgage.dto.MortgageResponseDTO;
 import com.ing.mortgage.service.MortgageService;
 
 @RestController
-@CrossOrigin(allowedHeaders = { "*", "/" }, origins = { "*", "/" })
 @RequestMapping("/api")
+@CrossOrigin(allowedHeaders = { "*", "/" }, origins = { "*", "/" })
 public class MortgageController {
 	@Autowired
-	private MortgageService mortgageService;
+	MortgageService mortgageService;
+
+	@PostMapping("/mortgage")
+	public ResponseEntity<MortgageResponseDTO> mortgage(@RequestBody MortgageRequsetDTO mortgageRequsetDTO) {
+		MortgageResponseDTO mortgageResponseDTO = mortgageService.createMortgage(mortgageRequsetDTO);
+		return new ResponseEntity<>(mortgageResponseDTO, HttpStatus.CREATED);
+
+	}
 
 	@GetMapping("/accounts/{customerId}")
 	public ResponseEntity<List<AccountDTO>> getAccountSummary(@PathVariable Long customerId) {
@@ -31,9 +38,5 @@ public class MortgageController {
 		return new ResponseEntity<>(listDTO, HttpStatus.OK);
 	}
 	
-	@PostMapping("/mortgage")
-	public ResponseEntity<MortgageResponseDTO> mortgage(@RequestBody MortgageRequsetDTO mortgageRequsetDTO){
-		MortgageResponseDTO mortgageResponseDTO = mortgageService.createMortgage(mortgageRequsetDTO);
-		return new ResponseEntity<>(mortgageResponseDTO,HttpStatus.CREATED);
-	}
+	
 }

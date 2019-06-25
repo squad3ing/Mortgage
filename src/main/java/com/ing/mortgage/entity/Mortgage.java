@@ -42,7 +42,7 @@ public class Mortgage implements Serializable{/**
 	private String email;	
 	private String confirmEmail;
 	@OneToOne
-	@JoinColumn(name = "customerId")
+	@JoinColumn(name="customerId")
 	private Customer customer;
 
 }

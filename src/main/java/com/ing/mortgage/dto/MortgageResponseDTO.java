@@ -11,9 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MortgageResponseDTO implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String loginId;
 	private String password;
