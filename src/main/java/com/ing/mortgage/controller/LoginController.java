@@ -28,7 +28,7 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 	
-	@PutMapping
+	@PutMapping("/login")
 	public ResponseEntity<CustomerDTO> login(@RequestBody LoginDTO loginDTO) throws IllegalAccessException, InvocationTargetException{
 		CustomerDTO customerDTO = loginService.login(loginDTO);
 		LOGGER.info("success");
