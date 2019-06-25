@@ -1,7 +1,6 @@
 package com.ing.mortgage.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
