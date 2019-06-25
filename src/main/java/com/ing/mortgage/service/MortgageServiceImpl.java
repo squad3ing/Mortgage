@@ -31,6 +31,7 @@ import com.ing.mortgage.exception.RestrictedAgeException;
 import com.ing.mortgage.repository.AccountRepository;
 import com.ing.mortgage.repository.CustomerRepository;
 import com.ing.mortgage.repository.MortgageRepository;
+import com.ing.mortgage.repository.TransactionRepository;
 
 @Service
 public class MortgageServiceImpl implements MortgageService {
@@ -44,6 +45,9 @@ public class MortgageServiceImpl implements MortgageService {
 	CustomerRepository customerRepository;
 	@Autowired
 	AccountRepository accountRepository;
+	
+	@Autowired
+	TransactionRepository transactionRepository;
 	
 	
 
@@ -115,6 +119,16 @@ public class MortgageServiceImpl implements MortgageService {
 		charge.setTransactionTime(LocalTime.now());
 		charge.setToAccount(mortgageAccount.getAccountNumber());
 		charge.setFromAccount(transactionalAccount.getAccountNumber());
+		transactionRepository.save(charge);
+		
+		Transaction updateMortgage = new Transaction();
+		updateMortgage.setAmount(mortgageAccount.getBalance()-200);
+		updateMortgage.setAccount(mortgageAccount);
+		updateMortgage.setTransactionDate(LocalDate.now());
+		updateMortgage.setTransactionTime(LocalTime.now());
+		updateMortgage.setToAccount(mortgageAccount.getAccountNumber());
+		updateMortgage.setFromAccount(transactionalAccount.getAccountNumber());
+		transactionRepository.save(updateMortgage);
 			
 		return mortgageResponseDTO;
 	}
