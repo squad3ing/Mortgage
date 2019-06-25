@@ -3,7 +3,6 @@ package com.ing.mortgage.service;
 
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,7 +22,6 @@ import com.ing.mortgage.dto.MortgageResponseDTO;
 import com.ing.mortgage.entity.Account;
 import com.ing.mortgage.entity.Customer;
 import com.ing.mortgage.entity.Mortgage;
-import com.ing.mortgage.entity.Transaction;
 import com.ing.mortgage.exception.CustomerAccountNotFound;
 import com.ing.mortgage.exception.InvalidPhoneNumberException;
 import com.ing.mortgage.exception.PropertyCostException;
@@ -111,25 +109,9 @@ public class MortgageServiceImpl implements MortgageService {
 		mortgageResponseDTO.setAccountNumber(transactionalAccount.getAccountNumber());
 		mortgageResponseDTO.setMortgageNumber(mortgageAccount.getAccountNumber());
 		mortgageResponseDTO.setCustomerName(customer.getCustomerName());
+
 		
-		Transaction charge = new Transaction();
-		charge.setAmount(transactionalAccount.getBalance()-200);
-		charge.setAccount(transactionalAccount);
-		charge.setTransactionDate(LocalDate.now());
-		charge.setTransactionTime(LocalTime.now());
-		charge.setToAccount(mortgageAccount.getAccountNumber());
-		charge.setFromAccount(transactionalAccount.getAccountNumber());
-		transactionRepository.save(charge);
 		
-		Transaction updateMortgage = new Transaction();
-		updateMortgage.setAmount(mortgageAccount.getBalance()-200);
-		updateMortgage.setAccount(mortgageAccount);
-		updateMortgage.setTransactionDate(LocalDate.now());
-		updateMortgage.setTransactionTime(LocalTime.now());
-		updateMortgage.setToAccount(mortgageAccount.getAccountNumber());
-		updateMortgage.setFromAccount(transactionalAccount.getAccountNumber());
-		transactionRepository.save(updateMortgage);
-			
 		return mortgageResponseDTO;
 	}
 	
@@ -175,6 +157,7 @@ public class MortgageServiceImpl implements MortgageService {
 		}
 
 	}
+	
 
 
 }
