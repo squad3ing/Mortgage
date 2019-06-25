@@ -17,7 +17,7 @@ public class ResponseError implements Serializable {
 	private String statusMessage;
 	private Integer statusCode;
 
-	public ResponseError(String statusMessage,Integer statusCode) {
+	public ResponseError(String statusMessage, Integer statusCode) {
 		this.statusMessage = statusMessage;
 		this.statusCode = statusCode;
 	}

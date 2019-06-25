@@ -13,6 +13,7 @@ import com.ing.mortgage.dto.AccountDTO;
 import com.ing.mortgage.dto.MortgageRequsetDTO;
 import com.ing.mortgage.dto.MortgageResponseDTO;
 import com.ing.mortgage.entity.Account;
+import com.ing.mortgage.exception.CustomerAccountNotFound;
 import com.ing.mortgage.repository.AccountRepository;
 
 @Service
@@ -34,17 +35,22 @@ public class MortgageServiceImpl implements MortgageService {
 		List<AccountDTO> listAccountDTO = null;
 		listAccountDTO = new ArrayList<>();
 		List<Account> listAccount = accountRepository.findByCustomerId(customerId);
-		for (Account account : listAccount) {
-			accountDTO = new AccountDTO();
-			accountDTO.setAccountId(account.getAccountId());
-			accountDTO.setAccountNumber(account.getAccountNumber());
-			accountDTO.setAccountType(account.getAccountType());
-			accountDTO.setBalance(account.getBalance());
-			accountDTO.setDate(account.getDate());
-			listAccountDTO.add(accountDTO);
+		if (!listAccount.isEmpty()) {
+			for (Account account : listAccount) {
+				accountDTO = new AccountDTO();
+				accountDTO.setAccountId(account.getAccountId());
+				accountDTO.setAccountNumber(account.getAccountNumber());
+				accountDTO.setAccountType(account.getAccountType());
+				accountDTO.setBalance(account.getBalance());
+				accountDTO.setDate(account.getDate());
+				listAccountDTO.add(accountDTO);
 
+			}
+			return listAccountDTO;
 		}
-		return listAccountDTO;
+		else {
+			 throw new CustomerAccountNotFound(customerId);
+		}
 
 	}
 
