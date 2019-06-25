@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter @Setter @NoArgsConstructor
 public class ResponseError implements Serializable{/**
 	 * 
@@ -18,5 +19,5 @@ public class ResponseError implements Serializable{/**
 		this.statusMessage = statusMessage;
 		this.statusCode=statusCode;
 	}
-
 }
+
