@@ -11,7 +11,7 @@ import com.ing.mortgage.entity.Account;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-	@Query(value="select a from Account a where a.customer.customerId= :id")
-	List<Account> findByCustomerId(@Param ("id")Long customerId);
+	@Query(value = "select a from Account a where a.customer.customerId= :id")
+	List<Account> findByCustomerId(@Param("id") Long customerId);
 
 }
