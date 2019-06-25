@@ -21,12 +21,12 @@ public class MortgageRequsetDTO implements Serializable {
 	private String employmentStatus;	
 	private String occupation;	
 	private String contractType;	
-	private LocalDate dateOfJoining;	
+	private String dateOfJoining;	
 	private String title;	
 	private String firstName;	
 	private String middleName;	
 	private String surName;	
-	private LocalDate dateOfBirth;	
+	private String dateOfBirth;	
 	private Long phoneNumber;
 	private String email;	
 	private String confirmEmail;
