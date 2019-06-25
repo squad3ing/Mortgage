@@ -2,6 +2,8 @@ package com.ing.mortgage.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +24,15 @@ import com.ing.mortgage.service.MortgageService;
 @RequestMapping("/api")
 @CrossOrigin(allowedHeaders = { "*", "/" }, origins = { "*", "/" })
 public class MortgageController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(MortgageController.class);
+	
 	@Autowired
 	MortgageService mortgageService;
 
 	@PostMapping("/mortgage")
 	public ResponseEntity<MortgageResponseDTO> mortgage(@RequestBody MortgageRequsetDTO mortgageRequsetDTO) {
+		LOGGER.info("Inside mortgage");
 		MortgageResponseDTO mortgageResponseDTO = mortgageService.createMortgage(mortgageRequsetDTO);
 		return new ResponseEntity<>(mortgageResponseDTO, HttpStatus.CREATED);
 
@@ -34,6 +40,7 @@ public class MortgageController {
 
 	@GetMapping("/accounts/{customerId}")
 	public ResponseEntity<List<AccountDTO>> getAccountSummary(@PathVariable Long customerId) {
+		LOGGER.info("Inside getAccountSummary");
 		List<AccountDTO> listDTO = mortgageService.fetchAccountByCustomerId(customerId);
 		return new ResponseEntity<>(listDTO, HttpStatus.OK);
 	}

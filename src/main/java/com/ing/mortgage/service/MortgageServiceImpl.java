@@ -43,7 +43,7 @@ public class MortgageServiceImpl implements MortgageService {
 	AccountRepository accountRepository;
 
 	public MortgageResponseDTO createMortgage(MortgageRequsetDTO mortgageRequsetDTO) {
-		
+		LOGGER.info("createMortgage");
 		Customer customer = new Customer();
 		customer.setLoginId(mortgageRequsetDTO.getFirstName() + "25");
 		customer.setPassword("Hcl@123");
