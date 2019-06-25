@@ -63,7 +63,7 @@ public class MortgageServiceImpl implements MortgageService {
 		Account transactionalAccount;
 		Account mortgageAccount;
 
-		List<Transaction> transactions = new ArrayList<>();
+		
 		if (mortgageRequsetDTO.getPropertyCost() >= 100000 && mortgageRequsetDTO.getDeposit() > 0) {
 			 transactionalAccount = new Account();
 			transactionalAccount.setBalance(mortgageRequsetDTO.getPropertyCost() - mortgageRequsetDTO.getDeposit());
@@ -71,7 +71,7 @@ public class MortgageServiceImpl implements MortgageService {
 			transactionalAccount.setAccountType("Transactional Account");
 			transactionalAccount.setDate(LocalDate.now());
 			transactionalAccount.setCustomer(customer);
-			transactionalAccount.setTransactions(transactions);
+			
 			accountRepository.save(transactionalAccount);
 
 			 mortgageAccount = new Account();
@@ -80,7 +80,7 @@ public class MortgageServiceImpl implements MortgageService {
 			mortgageAccount.setAccountType("Mortgage Account");
 			mortgageAccount.setDate(LocalDate.now());
 			mortgageAccount.setCustomer(customer);
-			mortgageAccount.setTransactions(transactions);
+			
 			accountRepository.save(mortgageAccount);
 		} 
 		
