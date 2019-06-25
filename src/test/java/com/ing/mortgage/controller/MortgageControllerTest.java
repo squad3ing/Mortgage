@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ing.mortgage.dto.AccountDTO;
 import com.ing.mortgage.dto.CustomerDTO;
+import com.ing.mortgage.dto.MortgageRequsetDTO;
+import com.ing.mortgage.dto.MortgageResponseDTO;
 import com.ing.mortgage.service.MortgageService;
 
 @RunWith(SpringRunner.class)
@@ -31,8 +33,12 @@ public class MortgageControllerTest {
 	@MockBean
 	MortgageService mortgageService;
 	CustomerDTO customerDTO;
-	List<AccountDTO> listAccountDTO = null;
-	AccountDTO account = null;
+	List<AccountDTO> listAccountDTO = new ArrayList<>();
+	AccountDTO account = new AccountDTO();
+
+	MortgageResponseDTO mortgageResponseDTO;
+
+	MortgageRequsetDTO mortgageRequsetDTO;
 
 	@Before
 	public void setup() {
@@ -42,6 +48,9 @@ public class MortgageControllerTest {
 		account = new AccountDTO();
 		account.setAccountNumber("Acc001");
 		listAccountDTO.add(account);
+		mortgageResponseDTO = new MortgageResponseDTO();
+
+		mortgageRequsetDTO = new MortgageRequsetDTO();
 
 	}
 
@@ -51,6 +60,16 @@ public class MortgageControllerTest {
 		Mockito.when(mortgageService.fetchAccountByCustomerId(customerDTO.getCustomerId())).thenReturn(listAccountDTO);
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts/1").contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(listAccountDTO))).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+
+	public void mortgageTest() throws Exception {
+
+		Mockito.when(mortgageService.createMortgage(mortgageRequsetDTO)).thenReturn(mortgageResponseDTO);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/mortgage").contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(mortgageResponseDTO))).andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 
 	public static String asJsonString(final Object obj) {
