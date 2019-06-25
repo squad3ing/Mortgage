@@ -3,6 +3,7 @@ package com.ing.mortgage.service;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +44,8 @@ public class MortgageServiceImpl implements MortgageService {
 	CustomerRepository customerRepository;
 	@Autowired
 	AccountRepository accountRepository;
+	
+	
 
 	public MortgageResponseDTO createMortgage(MortgageRequsetDTO mortgageRequsetDTO) {
 		LOGGER.info("createMortgage");
@@ -104,6 +107,14 @@ public class MortgageServiceImpl implements MortgageService {
 		mortgageResponseDTO.setAccountNumber(transactionalAccount.getAccountNumber());
 		mortgageResponseDTO.setMortgageNumber(mortgageAccount.getAccountNumber());
 		mortgageResponseDTO.setCustomerName(customer.getCustomerName());
+		
+		Transaction charge = new Transaction();
+		charge.setAmount(transactionalAccount.getBalance()-200);
+		charge.setAccount(transactionalAccount);
+		charge.setTransactionDate(LocalDate.now());
+		charge.setTransactionTime(LocalTime.now());
+		charge.setToAccount(mortgageAccount.getAccountNumber());
+		charge.setFromAccount(transactionalAccount.getAccountNumber());
 			
 		return mortgageResponseDTO;
 	}
@@ -150,5 +161,6 @@ public class MortgageServiceImpl implements MortgageService {
 		}
 
 	}
+
 
 }
