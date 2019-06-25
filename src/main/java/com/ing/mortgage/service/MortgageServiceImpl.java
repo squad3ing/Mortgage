@@ -85,7 +85,7 @@ public class MortgageServiceImpl implements MortgageService {
 		}
 		
 		String birthDay = mortgageRequsetDTO.getDateOfBirth();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dob = LocalDate.parse(birthDay, formatter);
         if(!validAge(dob)) {
         	throw new RestrictedAgeException();
